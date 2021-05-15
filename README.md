@@ -10,7 +10,7 @@ Add the crate to your project:
 cargo add dyn_partial_eq
 ```
 
-```rs
+```rust
 use dyn_partial_eq::*;
 
 // Use this to add a DynPartialEq supertrait and implement PartialEq for your trait.

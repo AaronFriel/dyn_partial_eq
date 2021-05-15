@@ -10,7 +10,7 @@
 //! cargo add dyn_partial_eq
 //! ```
 //!
-//! ```rs
+//! ```
 //! use dyn_partial_eq::*;
 //!
 //! // Use this to add a DynPartialEq supertrait and implement PartialEq for your trait.
@@ -29,7 +29,7 @@
 //!
 //! And voila:
 //!
-//! ```rs
+//! ```
 //! let boxed_a_zero: Box<dyn SomeTrait> = Box::new(A(0));
 //! let boxed_a_one: Box<dyn SomeTrait> = Box::new(A(1));
 //! let boxed_b: Box<dyn SomeTrait> = Box::new(B((1, 2)));
