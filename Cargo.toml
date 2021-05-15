@@ -1,0 +1,14 @@
+[package]
+name = "dyn_partial_eq"
+version = "0.1.0"
+authors = ["Aaron Friel <mayreply@aaronfriel.com>"]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+description = "PartialEq macros for trait objects"
+repository = "https://github.com/AaronFriel/dyn_partial_eq"
+
+[workspace]
+members = ["derive"]
+
+[dependencies]
+dyn_partial_eq_derive = { version="=0.1.0", path = "derive"}
