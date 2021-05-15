@@ -29,7 +29,7 @@ impl SomeTrait for B {}
 
 And voila:
 
-```rs
+```rust
 let boxed_a_zero: Box<dyn SomeTrait> = Box::new(A(0));
 let boxed_a_one: Box<dyn SomeTrait> = Box::new(A(1));
 let boxed_b: Box<dyn SomeTrait> = Box::new(B((1, 2)));
