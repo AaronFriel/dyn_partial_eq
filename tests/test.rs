@@ -48,9 +48,9 @@ fn test_dyn_nested_partial_eq() {
         } => match *self {
           Parent {
             child: ref __self_0_0,
-          } => (*__self_0_0) == (*__self_1_0),
+          } => (__self_0_0) == (__self_1_0),
           /*
-          ERROR:
+          ERROR FIXED:
           cannot move out of `*__self_1_0` which is behind a shared reference
           move occurs because `*__self_1_0` has type `Box<dyn ChildTrait>`, which does not implement the `Copy` trait
           rustc E0507
@@ -66,9 +66,9 @@ fn test_dyn_nested_partial_eq() {
         } => match *self {
           Parent {
             child: ref __self_0_0,
-          } => (*__self_0_0) != (*__self_1_0),
+          } => (__self_0_0) != (__self_1_0),
           /*
-          ERROR:
+          ERROR FIXED:
           cannot move out of `*__self_1_0` which is behind a shared reference
           move occurs because `*__self_1_0` has type `Box<dyn ChildTrait>`, which does not implement the `Copy` trait
           rustc E0507
@@ -85,4 +85,21 @@ fn test_dyn_nested_partial_eq() {
   #[derive(DynPartialEq, PartialEq)]
   struct Child(usize);
   impl ChildTrait for Child {}
+
+
+  let c1_a: Box<dyn ChildTrait> = Box::new(Child(1));
+  let c1_b: Box<dyn ChildTrait> = Box::new(Child(1));
+  let c2: Box<dyn ChildTrait> = Box::new(Child(2));
+
+  assert_eq!(&c1_a == &c1_a, true);
+  assert_eq!(&c1_a == &c1_b, true);
+  assert_eq!(&c1_a == &c2, false);
+
+  let p1_a: Box<dyn ParentTrait> = Box::new(Parent { child: c1_a });
+  let p1_b: Box<dyn ParentTrait> = Box::new(Parent { child: c1_b });
+  let p2: Box<dyn ParentTrait> = Box::new(Parent { child: c2 });
+
+  assert_eq!(&p1_a == &p1_a, true);
+  assert_eq!(&p1_a == &p1_b, true);
+  assert_eq!(&p1_a == &p2, false);
 }
