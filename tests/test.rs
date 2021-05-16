@@ -35,15 +35,47 @@ fn test_dyn_nested_partial_eq() {
   #[dyn_partial_eq]
   trait ParentTrait {}
 
-  #[derive(PartialEq, DynPartialEq)]
+  #[derive(DynPartialEq)]
   struct Parent {
     child: Box<dyn ChildTrait>,
-    /*
-ERROR:
-cannot move out of `*__self_1_0` which is behind a shared reference
-move occurs because `*__self_1_0` has type `Box<dyn ChildTrait>`, which does not implement the `Copy` trait
-rustc E0507
-    */
+  }
+  impl ::core::cmp::PartialEq for Parent {
+    #[inline]
+    fn eq(&self, other: &Parent) -> bool {
+      match *other {
+        Parent {
+          child: ref __self_1_0,
+        } => match *self {
+          Parent {
+            child: ref __self_0_0,
+          } => (*__self_0_0) == (*__self_1_0),
+          /*
+          ERROR:
+          cannot move out of `*__self_1_0` which is behind a shared reference
+          move occurs because `*__self_1_0` has type `Box<dyn ChildTrait>`, which does not implement the `Copy` trait
+          rustc E0507
+              */
+        },
+      }
+    }
+    #[inline]
+    fn ne(&self, other: &Parent) -> bool {
+      match *other {
+        Parent {
+          child: ref __self_1_0,
+        } => match *self {
+          Parent {
+            child: ref __self_0_0,
+          } => (*__self_0_0) != (*__self_1_0),
+          /*
+          ERROR:
+          cannot move out of `*__self_1_0` which is behind a shared reference
+          move occurs because `*__self_1_0` has type `Box<dyn ChildTrait>`, which does not implement the `Copy` trait
+          rustc E0507
+              */
+        },
+      }
+    }
   }
   impl ParentTrait for Parent {}
 
