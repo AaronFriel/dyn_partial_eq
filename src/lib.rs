@@ -1,4 +1,5 @@
-use std::any::Any;
+#![no_std]
+use core::any::Any;
 
 pub use dyn_partial_eq_derive::*;
 
