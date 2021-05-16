@@ -1,6 +1,6 @@
 [package]
 name = "dyn_partial_eq"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Aaron Friel <mayreply@aaronfriel.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -11,4 +11,4 @@ repository = "https://github.com/AaronFriel/dyn_partial_eq"
 members = ["derive"]
 
 [dependencies]
-dyn_partial_eq_derive = { version="=0.1.1", path = "derive"}
+dyn_partial_eq_derive = { version="=0.1.2", path = "derive"}
